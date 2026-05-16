@@ -1,7 +1,7 @@
 import { Section } from './Section'
 import { profile } from '../content/profile'
 
-const TONE = '#5e7a5f'
+// const TONE = '#5e7a5f'
 
 export function About() {
   return (
