@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: 60 95 150;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body, #root {
+  background-color: #f5f1ea;
+  color: #1a1a1a;
+}
+
+body {
+  margin: 0;
+  font-family: 'Geist', ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background-color: rgb(var(--accent) / 0.25);
+  color: #1a1a1a;
+}
+
