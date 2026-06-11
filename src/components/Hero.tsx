@@ -1,119 +1,115 @@
-import { useRef } from 'react'
+import { lazy, useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { gsap } from '../lib/gsap'
 import { profile } from '../content/profile'
-import { Sketch } from './Sketch'
+
+const Model = lazy(() => import("./HeroModel"))
+
+// Code-split three.js into its own chunk so the rest of the site loads fast.
+
 
 export function Hero() {
   const ref = useRef<HTMLElement | null>(null)
+  const { hero } = profile
 
   useGSAP(
     () => {
-      const greeting = ref.current?.querySelector<HTMLElement>('[data-hero-greeting]')
-      const words = ref.current?.querySelectorAll<HTMLElement>('[data-hero-word]')
-      const meta = ref.current?.querySelectorAll<HTMLElement>('[data-hero-meta]')
-      const stats = ref.current?.querySelectorAll<HTMLElement>('[data-hero-stat]')
-      const sketch = ref.current?.querySelector<HTMLElement>('[data-hero-sketch]')
-
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-      if (greeting) {
-        tl.from(greeting, { y: 12, opacity: 0, duration: 0.6 })
-      }
-      if (words && words.length) {
-        tl.from(
-          words,
-          { y: 14, opacity: 0, duration: 0.7, stagger: 0.04 },
-          '-=0.3',
-        )
-      }
-      if (sketch) {
-        tl.from(
-          sketch,
-          { opacity: 0, y: 12, scale: 0.97, duration: 0.7 },
-          '-=0.45',
-        )
-      }
-      if (meta && meta.length) {
-        tl.from(meta, { y: 10, opacity: 0, duration: 0.5, stagger: 0.08 }, '-=0.4')
-      }
-      if (stats && stats.length) {
-        tl.from(
-          stats,
-          { y: 8, opacity: 0, duration: 0.45, stagger: 0.06 },
-          '-=0.3',
-        )
+      const reveal = ref.current?.querySelectorAll<HTMLElement>('[data-hero]')
+      if (reveal && reveal.length) {
+        gsap.from(reveal, {
+          y: 18,
+          opacity: 0,
+          duration: 0.7,
+          ease: 'power3.out',
+          stagger: 0.08,
+        })
       }
     },
     { scope: ref },
   )
 
-  const taglineWords = profile.tagline.split(' ')
+  const social: Array<{ label: string; href: string }> = [
+    { label: 'github', href: profile.contact.github },
+    { label: 'linkedin', href: profile.contact.linkedin },
+    { label: 'email', href: `mailto:${profile.contact.email}` },
+  ]
 
   return (
     <section
       id="top"
       ref={ref}
-      className="px-6 pb-16 pt-24 sm:px-10 sm:pb-24 sm:pt-32"
+      className="relative px-6 pb-16 pt-20 sm:px-10 sm:pb-24 sm:pt-28"
     >
-      <div className="mx-auto max-w-3xl">
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:gap-12">
-          <div className="flex-1 min-w-0">
-            <p
-              data-hero-greeting
-              className="mb-6 font-mono text-xs text-muted"
-            >
-              <span className="text-accent">●</span>{' '}
-              <span>
-                {profile.role.toLowerCase()} · based in {profile.location.toLowerCase()} · open to chat
-              </span>
-            </p>
-            <h1 className="font-mono text-[clamp(1.25rem,2.6vw,1.875rem)] font-medium leading-[1.3] tracking-tightish text-ink">
-              {taglineWords.map((word, i) => (
-                <span
-                  key={`${word}-${i}`}
-                  data-hero-word
-                  className="mr-[0.25em] inline-block"
+      <div className="mx-auto max-w-5xl gap-10 items-center flex">
+        {/* Left — the statement */}
+        <div className="">
+          <p
+            data-hero
+            className="mb-6 inline-flex items-center gap-2 font-mono text-xs text-muted"
+          >
+
+            <span>{profile.location.toLowerCase()}</span>
+          </p>
+
+          <h1 className="font-sans text-[clamp(2rem,6.5vw,4rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.03em] text-ink">
+            <span data-hero className="block">{hero.lead}</span>
+            <span data-hero className="block">
+              {hero.tail}
+              <span className="text-accent"> / {hero.accent}</span>
+            </span>
+          </h1>
+
+          <p data-hero className="mt-6 max-w-md font-mono text-sm text-muted">
+            {hero.credentials}
+          </p>
+
+          <ul data-hero className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-sm">
+            {social.map((s) => (
+              <li key={s.label}>
+                <a
+                  href={s.href}
+                  target={s.href.startsWith('http') ? '_blank' : undefined}
+                  rel="noreferrer"
+                  className="link-underline text-ink transition-colors hover:text-accent"
                 >
-                  {word}
-                </span>
-              ))}
-            </h1>
-          </div>
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-          <div
-            data-hero-sketch
-            className="text-accent self-end sm:shrink-0 sm:self-auto"
-          >
-            <Sketch className="w-44 sm:w-56" />
-          </div>
-        </div>
+          <p data-hero className="mt-7 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+            {hero.intro}
+          </p>
 
-        <ul className="mt-10 flex flex-wrap items-center gap-x-3 gap-y-2 font-mono text-xs text-muted">
-          {profile.stats.map((stat, i) => (
-            <li
-              key={stat}
-              data-hero-stat
-              className="flex items-center gap-x-3"
-            >
-              {i > 0 ? <span aria-hidden className="text-rule">·</span> : null}
-              <span>{stat}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted">
-          <span data-hero-meta className="font-mono">
-            <span className="text-ink">{profile.name.toLowerCase()}</span>
-          </span>
-          <span data-hero-meta className="hidden h-3 w-px bg-rule sm:inline-block" />
           <a
-            data-hero-meta
+            data-hero
             href="#projects"
-            className="font-mono underline decoration-rule decoration-1 underline-offset-[6px] transition-colors hover:text-ink hover:decoration-accent"
+            className="group mt-8 inline-flex items-center gap-2 font-mono text-sm text-ink underline decoration-rule decoration-1 underline-offset-[6px] transition-colors hover:decoration-accent hover:text-accent"
           >
-            $ cat projects ↓
+            $ cat projects{' '}
+            <span className="inline-block transition-transform group-hover:translate-y-0.5">↓</span>
           </a>
         </div>
+
+        <div className="w-full lg:w-1/3 flex justify-center items-center">
+          {/* <ScrollReveal> */}
+          <Model />
+          {/* </ScrollReveal> */}
+        </div>
+
+        {/* Right — interactive 3D model */}
+        {/* <div data-hero className="order-first sm:order-none">
+          <Suspense
+            fallback={
+              <div className="flex h-72 w-full items-center justify-center sm:h-[28rem]">
+                <span className="font-mono text-xs text-muted2">loading model…</span>
+              </div>
+            }
+          >
+            <HeroModel />
+          </Suspense>
+        </div> */}
       </div>
     </section>
   )

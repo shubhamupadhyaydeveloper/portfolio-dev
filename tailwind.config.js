@@ -4,10 +4,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#f5f1ea',
-        ink: '#1a1a1a',
-        muted: '#6b6358',
-        rule: '#d8d0c2',
+        bg: 'rgb(var(--bg) / <alpha-value>)',
+        surface: 'rgb(var(--surface) / <alpha-value>)',
+        ink: 'rgb(var(--ink) / <alpha-value>)',
+        muted: 'rgb(var(--muted) / <alpha-value>)',
+        muted2: 'rgb(var(--muted2) / <alpha-value>)',
+        rule: 'rgb(var(--rule) / <alpha-value>)',
         accent: 'rgb(var(--accent) / <alpha-value>)',
       },
       fontFamily: {

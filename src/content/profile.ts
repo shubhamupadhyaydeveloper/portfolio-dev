@@ -13,6 +13,8 @@ export type Project = {
   href?: string
   tags: string[]
   kind: ProjectKind
+  /** Path to a real screenshot (e.g. '/projects/app.png'). Falls back to a placeholder when unset. */
+  image?: string
 }
 
 export type Schooling = {
@@ -38,6 +40,15 @@ export const profile = {
   role: 'Web & Mobile Developer',
   tagline:
     'Web & mobile developer building with React, React Native, and TypeScript — currently going deep on AI, always learning something new.',
+
+  hero: {
+    lead: 'Mobile & Web',
+    tail: 'Developer',
+    accent: 'AI',
+    credentials: 'React Native · React · TypeScript · building with AI',
+    intro:
+      "Hi, I'm Shubham. I build and ship mobile and web products end-to-end — from idea to a live release. I work mostly in React & React Native with a Node/Python backend, and I'm currently going deep on applied AI with the team at mProfit.",
+  },
 
   stats: [
     '1 app live on Play Store',
@@ -132,33 +143,49 @@ export const profile = {
         { name: 'React Native', highlighted: true },
         { name: 'Play Store (Android)', highlighted : true},
         { name: 'Expo' },
-        { name: 'Flutter', highlighted: false },
       ],
     },
     {
-      name: 'Backend',
+      name: 'Tools / Workflow / Languages',
       items: [
         { name: 'Node.js', highlighted : true },
+        {name : 'Python'},
         { name: 'Fast Api'},
+        { name: 'Jira' },
+        { name: 'Figma' },
+        { name: 'Vercel/Render' },
+         { name: 'Claude Code'},
         { name: 'Flask'},
         { name: 'Go' },
         { name: 'REST APIs' },
       ],
     },
     {
-      name: 'Tools / Workflow',
+      name: 'Cloud / DevOps',
       items: [
         { name: 'Git' },
-        { name: 'Jira' },
-        { name: 'Figma' },
-        { name: 'Vercel/Render' },
-        { name: 'Claude Code'},
+        {name : 'Linux'},
         { name: 'Docker'},
+        { name: 'CI/CD'},
+        {name : 'Traefik'},
         { name: 'Github Actions'},
-        { name: 'CI/CD'}
-
+        {name: 'Digital Ocean (vps)'},
+        {name : "VPS"},
+        {name : "AWS (EC2, S3, LAMBDA, ECR, BEDROCK, IAM, CLOUDFRONT)"}
       ],
     },
+    {
+      name : "Applied AI",
+      items : [
+        {name : "Generative AI",highlighted : true},
+        {name : "Transformers",highlighted : true},
+        {name : "Hugging Face"},
+        {name : "Langchain/Langgraph"},
+        {name : "OpenAI API"},
+        {name : "RAG & Vector Search"},
+        {name : "Prompt Engineering"}
+      ]
+    }
   ] satisfies SkillCategory[],
 
   education: [

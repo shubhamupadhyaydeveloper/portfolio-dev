@@ -4,15 +4,27 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#f5f1ea" />
-    <meta name="description" content="Shubham Upadhyay — a developer who builds things for the web." />
+    <meta name="theme-color" content="#f7f4ee" />
+    <meta name="description" content="Shubham Upadhyay — mobile & web developer building with React, React Native and AI." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <title>Shubham Upadhyay</title>
+    <script>
+      // Apply saved theme before paint (default: dark) to avoid a flash.
+      (function () {
+        try {
+          var t = localStorage.getItem('port:theme');
+          if (t !== 'light' && t !== 'dark') t = 'dark';
+          document.documentElement.setAttribute('data-theme', t);
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
