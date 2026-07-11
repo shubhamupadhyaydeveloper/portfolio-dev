@@ -20,7 +20,7 @@ export function Contact() {
   }
 
   return (
-    <Section id="contact" command="contact" title="Say hi." tone="terracotta" index="06">
+    <Section id="contact" command="contact" title="Say hi." tone="terracotta" index="06" className="footer-grad">
       <p data-reveal className="max-w-xl font-sans text-lg leading-relaxed text-muted sm:text-xl">
         I'm slow on most platforms but quick on email. If you're building
         something interesting — or just want to talk shop — drop a line.

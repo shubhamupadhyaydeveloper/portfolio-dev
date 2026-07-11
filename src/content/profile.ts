@@ -47,7 +47,7 @@ export const profile = {
     accent: 'AI',
     credentials: 'React Native · React · TypeScript · building with AI',
     intro:
-      "Hi, I'm Shubham. I build and ship mobile and web products end-to-end — from idea to a live release. I work mostly in React & React Native with a Node/Python backend, and I'm currently going deep on applied AI with the team at mProfit.",
+      "Hi, I'm Shubham. I build and ship mobile and web products end-to-end from idea to a live release. I work mostly in React & React Native with a Node/Python backend, and I'm currently going deep on applied AI with the team at mProfit.",
   },
 
   stats: [
@@ -66,7 +66,7 @@ export const profile = {
   work: [
     {
       company: 'mProfit',
-      role: 'Frontend Developer · AI Team',
+      role: 'Software Engineer · AI Team',
       period: 'Apr 2026 — Present',
       blurb:
         'Promoted from intern. Building product surfaces and now also part of the AI team at a wealth-management platform.',
@@ -171,7 +171,8 @@ export const profile = {
         { name: 'Github Actions'},
         {name: 'Digital Ocean (vps)'},
         {name : "VPS"},
-        {name : "AWS (EC2, S3, LAMBDA, ECR, BEDROCK, IAM, CLOUDFRONT)"}
+        {name : "AWS (ECS, ECR, EC2, S3, LAMBDA, BEDROCK, IAM, CLOUDFRONT)", highlighted : true},
+        {name : "Azure (Azure Functions, Stroage Container, Foundry)", highlighted : true}
       ],
     },
     {

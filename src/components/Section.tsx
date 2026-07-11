@@ -1,17 +1,8 @@
-import { useRef, type ReactNode } from 'react'
-import { useGSAP } from '@gsap/react'
-import { gsap, ScrollTrigger } from '../lib/gsap'
+import { type ReactNode } from 'react'
+import { useReveal } from '../hooks/useReveal'
 
+// Kept for call-site compatibility — color now comes from the single accent.
 export type Tone = 'blue' | 'sage' | 'plum' | 'amber' | 'terracotta'
-
-// A cohesive, slightly muted set — reads as a family rather than a rainbow.
-const TONE_COLOR: Record<Tone, string> = {
-  blue: '#42648f',
-  sage: '#5f7a5d',
-  plum: '#825873',
-  amber: '#a8772f',
-  terracotta: '#bd5a41',
-}
 
 type SectionProps = {
   id: string
@@ -20,6 +11,7 @@ type SectionProps = {
   tone?: Tone
   surface?: boolean
   index?: string
+  className?: string
   children: ReactNode
 }
 
@@ -27,68 +19,40 @@ export function Section({
   id,
   command,
   title,
-  tone = 'blue',
   surface = false,
   index,
+  className = '',
   children,
 }: SectionProps) {
-  const ref = useRef<HTMLElement | null>(null)
-  const toneColor = TONE_COLOR[tone]
-
-  useGSAP(
-    () => {
-      const targets = ref.current?.querySelectorAll<HTMLElement>('[data-reveal]')
-      if (!targets || targets.length === 0) return
-
-      gsap.from(targets, {
-        y: 18,
-        opacity: 0,
-        duration: 0.7,
-        ease: 'power2.out',
-        stagger: 0.07,
-        scrollTrigger: {
-          trigger: ref.current,
-          start: 'top 85%',
-          once: true,
-        },
-      })
-    },
-    { scope: ref },
-  )
+  const ref = useReveal<HTMLElement>()
 
   return (
     <section
       id={id}
       ref={ref}
-      className={`relative px-6 py-20 sm:px-10 sm:py-28 ${surface ? 'bg-surface' : ''}`}
-      style={{ borderTop: `1px solid ${toneColor}40` }}
+      className={`relative border-t border-rule px-6 py-24 sm:px-10 sm:py-32 ${
+        surface ? 'bg-surface' : ''
+      } ${className}`}
     >
       <div className="mx-auto max-w-5xl">
         <div
           data-reveal
-          className="mb-8 flex items-center gap-3 font-mono text-[0.7rem] uppercase tracking-[0.18em]"
-          style={{ color: toneColor }}
+          className="mb-10 flex items-center gap-3 font-mono text-[0.7rem] uppercase tracking-[0.18em] text-muted"
         >
           {index ? (
-            <span className="font-semibold tabular-nums opacity-70">{index}</span>
+            <span className="tabular-nums text-muted2">{index}</span>
           ) : null}
-          <span aria-hidden className="font-semibold opacity-80">$</span>
-          <span className="opacity-90">{command}</span>
-          <span
-            className="h-px flex-1"
-            aria-hidden
-            style={{
-              background: `linear-gradient(to right, ${toneColor}55, transparent)`,
-            }}
-          />
+          <span aria-hidden className="text-accent">$</span>
+          <span>{command}</span>
+          <span aria-hidden className="h-px flex-1 bg-rule" />
         </div>
         {title ? (
           <h2
             data-reveal
-            className="mb-10 max-w-2xl font-sans text-2xl font-semibold leading-[1.15] tracking-tightish text-ink sm:text-3xl"
+            className="mb-12 max-w-2xl font-sans text-3xl font-semibold leading-[1.1] tracking-[-0.02em] text-ink sm:text-4xl"
           >
             {title.replace(/\.$/, '')}
-            <span style={{ color: toneColor }} aria-hidden>
+            <span className="text-accent" aria-hidden>
               {' '}/
             </span>
           </h2>
@@ -98,5 +62,3 @@ export function Section({
     </section>
   )
 }
-
-export { ScrollTrigger }

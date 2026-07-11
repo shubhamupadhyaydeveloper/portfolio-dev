@@ -17,7 +17,7 @@ export function Projects() {
               href={project.href || '#'}
               target={project.href && project.href !== '#' ? '_blank' : undefined}
               rel="noreferrer"
-              className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-rule bg-surface transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:shadow-[0_12px_40px_-24px_rgba(0,0,0,0.45)]"
+              className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-rule bg-surface shadow-[0_1px_0_0_rgb(255_255_255/0.03)_inset,0_10px_30px_-22px_rgb(0_0_0/0.18)] transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_1px_0_0_rgb(255_255_255/0.05)_inset,0_24px_50px_-28px_rgb(0_0_0/0.28)]"
             >
               {/* 16:9 image area — real screenshot when available, tasteful placeholder otherwise */}
               <div className="relative aspect-[16/9] overflow-hidden border-b border-rule bg-bg">

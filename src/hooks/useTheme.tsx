@@ -19,10 +19,10 @@ const STORAGE_KEY = 'port:theme'
 const ThemeContext = createContext<ThemeContextValue | null>(null)
 
 function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') return 'dark'
+  if (typeof window === 'undefined') return 'light'
   const stored = window.localStorage.getItem(STORAGE_KEY)
   if (stored === 'light' || stored === 'dark') return stored
-  return 'dark' // default to dark
+  return 'light' // default to light (Mireye-style)
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {

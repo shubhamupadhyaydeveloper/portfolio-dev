@@ -38,20 +38,23 @@ export function Hero() {
     <section
       id="top"
       ref={ref}
-      className="relative px-6 pb-16 pt-20 sm:px-10 sm:pb-24 sm:pt-28"
+      className="relative px-6 pb-20 pt-24 sm:px-10 sm:pb-28 sm:pt-32"
     >
-      <div className="mx-auto max-w-5xl gap-10 items-center flex">
+      <div className="mx-auto flex max-w-5xl flex-col items-center gap-10 lg:flex-row lg:items-center lg:gap-12">
         {/* Left — the statement */}
-        <div className="">
+        <div className="w-full min-w-0 lg:flex-1">
           <p
             data-hero
-            className="mb-6 inline-flex items-center gap-2 font-mono text-xs text-muted"
+            className="mb-7 inline-flex items-center gap-2 rounded-full border border-rule bg-surface/60 px-3 py-1 font-mono text-[0.7rem] uppercase tracking-[0.14em] text-muted"
           >
-
+            {/* <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+            </span> */}
             <span>{profile.location.toLowerCase()}</span>
           </p>
 
-          <h1 className="font-sans text-[clamp(2rem,6.5vw,4rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.03em] text-ink">
+          <h1 className="font-sans text-[clamp(2.75rem,6.5vw,5rem)] font-extrabold uppercase leading-[0.95] tracking-[-0.03em] text-ink">
             <span data-hero className="block">{hero.lead}</span>
             <span data-hero className="block">
               {hero.tail}
@@ -78,14 +81,14 @@ export function Hero() {
             ))}
           </ul>
 
-          <p data-hero className="mt-7 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+          <p data-hero className="mt-8 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
             {hero.intro}
           </p>
 
           <a
             data-hero
             href="#projects"
-            className="group mt-8 inline-flex items-center gap-2 font-mono text-sm text-ink underline decoration-rule decoration-1 underline-offset-[6px] transition-colors hover:decoration-accent hover:text-accent"
+            className="group mt-9 inline-flex items-center gap-2 rounded-full border border-rule bg-surface/60 px-4 py-2 font-mono text-sm text-ink transition-colors hover:border-accent hover:text-accent"
           >
             $ cat projects{' '}
             <span className="inline-block transition-transform group-hover:translate-y-0.5">↓</span>

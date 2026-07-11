@@ -3,30 +3,61 @@
 @tailwind utilities;
 
 :root {
-  --accent: 60 95 150;
-
-  /* Light theme (warm paper) — RGB triplets so Tailwind alpha modifiers work */
-  --bg: 247 244 238;
-  --surface: 255 253 249;
-  --ink: 22 21 19;
-  --muted: 107 99 88;
-  --muted2: 154 144 130;
-  --rule: 225 217 204;
+  /* Light — airy near-white so the soft hero gradient melts into the page. */
+  --accent: 79 70 229;        /* indigo-600 */
+  --bg: 251 250 248;
+  --surface: 255 255 255;
+  --ink: 23 23 23;
+  --muted: 92 92 100;
+  --muted2: 150 150 158;
+  --rule: 228 226 222;
 }
 
 [data-theme='dark'] {
-  --bg: 14 15 17;
-  --surface: 24 25 28;
-  --ink: 237 237 234;
-  --muted: 158 153 145;
-  --muted2: 110 106 100;
-  --rule: 46 48 52;
+  /* Dark — cool, layered near-black (not flat). Clear elevation between bg/surface. */
+  --accent: 129 140 248;      /* indigo-400, glows on near-black */
+  --bg: 12 13 18;             /* cool, slightly lifted — avoids dead-flat black */
+  --surface: 24 26 34;        /* distinctly elevated card/section */
+  --ink: 240 241 245;
+  --muted: 158 161 173;
+  --muted2: 104 107 120;
+  --rule: 44 47 58;           /* cool hairline, a touch more visible */
+}
+
+/* Premium depth: a soft accent glow at the top + faint vignette (dark only) */
+[data-theme='dark'] body {
+  background-image:
+    radial-gradient(58rem 32rem at 50% -10%, rgb(var(--accent) / 0.08), transparent 60%),
+    radial-gradient(90rem 60rem at 50% 0%, rgb(255 255 255 / 0.02), transparent 55%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 html {
   scroll-behavior: smooth;
   /* clear the sticky nav when jumping to anchors */
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 6rem;
+}
+
+/* never allow accidental horizontal scroll */
+html, body { overflow-x: hidden; }
+
+/* Reveal-on-scroll — visible by default; only hidden once JS is active, so content can
+   never get stuck invisible if JS/observer fails. */
+[data-reveal] { opacity: 1; }
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.6, 0.2, 1),
+    transform 0.7s cubic-bezier(0.2, 0.6, 0.2, 1);
+  will-change: opacity, transform;
+}
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; transition: none; }
 }
 
 html, body, #root {
@@ -114,4 +145,45 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .link-underline::after { transition: none; }
+}
+
+/* Soft, smooth gradient on the hero itself (Mireye-style). Applied as the element's own
+   background-image (radials fade to transparent → blend into the page bg). Content paints above. */
+.hero-bg {
+  background-image:
+    radial-gradient(52rem 26rem at 50% -6%, rgb(223 214 238 / 0.55), transparent 72%),
+    radial-gradient(46rem 34rem at 94% -4%, rgb(247 201 169 / 0.72), transparent 62%),
+    radial-gradient(44rem 38rem at -6% 8%, rgb(187 222 196 / 0.7), transparent 64%),
+    radial-gradient(60rem 48rem at 50% 122%, rgb(var(--accent) / 0.14), transparent 60%);
+  background-repeat: no-repeat;
+}
+
+[data-theme='dark'] .hero-bg {
+  background-image:
+    radial-gradient(52rem 30rem at 50% -8%, rgb(var(--accent) / 0.22), transparent 62%),
+    radial-gradient(46rem 34rem at 94% 0%, rgb(180 150 210 / 0.1), transparent 60%),
+    radial-gradient(44rem 38rem at -6% 8%, rgb(120 160 200 / 0.1), transparent 62%);
+}
+
+/* primary button — soft accent gradient */
+.btn-accent {
+  background-image: linear-gradient(135deg, rgb(var(--accent)), rgb(var(--accent) / 0.82));
+  color: #fff;
+  border: 1px solid transparent;
+}
+.btn-accent:hover {
+  filter: brightness(1.06);
+}
+
+/* footer / contact — gentle bottom gradient echo of the hero */
+.footer-grad {
+  background-image:
+    radial-gradient(48rem 24rem at 50% 118%, rgb(var(--accent) / 0.12), transparent 64%),
+    radial-gradient(40rem 22rem at 90% 112%, rgb(247 201 169 / 0.35), transparent 60%),
+    radial-gradient(40rem 22rem at 6% 108%, rgb(187 222 196 / 0.3), transparent 60%);
+  background-repeat: no-repeat;
+}
+[data-theme='dark'] .footer-grad {
+  background-image:
+    radial-gradient(48rem 26rem at 50% 120%, rgb(var(--accent) / 0.16), transparent 64%);
 }

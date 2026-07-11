@@ -15,9 +15,11 @@ export default function App() {
     <ThemeProvider>
       <div className="min-h-screen bg-bg text-ink">
         <ScrollProgress />
-        <Nav />
-        <main>
+        <div className="hero-bg relative">
+          <Nav />
           <Hero />
+        </div>
+        <main>
           <About />
           <Work />
           <Skills />
